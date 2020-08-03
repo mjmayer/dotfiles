@@ -16,6 +16,7 @@
     ~/.tmux/tmux.remote.conf: tmux.remote.conf
     ~/.vim: vim
     ~/.vimrc: vimrc
+    ~/.ssh/config: ssh_config
 
 
 - shell:
@@ -25,3 +26,4 @@
     description: Cloning Tmux Plugin Manager
     quiet: true
   - [tmux new -d -s __noop >/dev/null 2>&1 || true; tmux set-environment -g TMUX_PLUGIN_MANAGER_PATH "~/.tmux/plugins"; "$HOME"/.tmux/plugins/tpm/bin/install_plugins || true; tmux kill-session -t __noop >/dev/null 2>&1 || true ] 
+  - ./encrypt_decrypt.sh
