@@ -1,0 +1,69 @@
+# the files are located in the bash-doc package.
+
+# the default umask is set in /etc/profile; for setting the umask
+# for ssh logins, install and configure the libpam-umask package.
+#umask 022
+
+# if running bash
+if [ -n "$BASH_VERSION" ]; then
+    # include .bashrc if it exists
+    if [ -f "$HOME/.bashrc" ]; then
+	. "$HOME/.bashrc"
+    fi
+fi
+
+# set PATH so it includes user's private bin if it exists
+if [ -d "$HOME/bin" ] ; then
+    PATH="$HOME/bin:$PATH"
+fi
+
+# set PATH so it includes user's private bin if it exists
+if [ -d "$HOME/.local/bin" ] ; then
+    PATH="$HOME/.local/bin:$PATH"
+fi
+
+# Git alias
+if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
+    . /etc/bash_completion
+    . /usr/share/bash-completion/completions/git
+fi
+
+
+function_exists() {
+    declare -f -F $1 > /dev/null
+    return $?
+}
+
+for al in `__git_aliases`; do
+    alias g$al="git $al"
+    
+    complete_func=_git_$(__git_aliased_command $al)
+    function_exists $complete_fnc && __git_complete g$al $complete_func
+done
+
+export PATH="$PATH:$/HOME/.local/bin:$HOME/.local/webstorm/bin:$HOME/.local/goland/bin:$HOME/.local/pycharm/bin"
+
+# NVM
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+
+# Aliases for AWS CLI Profile
+alias awsait='export AWS_PROFILE="ait"'
+alias awsms='export AWS_PROFILE="mailsac"'
+
+export LD_LIBRARY_PATH="$HOME/.local/oracle/instantclient_19_6/"
+GOPATH="$HOME/go"
+PATH="$HOME/.local/bin/:/usr/local/go/bin:$GOPATH/bin:$LD_LIBRARY_PATH:$PATH"
+GOPATH=$(go env GOPATH)
+
+# Sets PROMPT_COMMAND to HOSTNAME:PWD which in turn works with tmux to update window name
+case "$TERM" in
+linux|xterm*|rxvt*)
+  export PROMPT_COMMAND='echo -ne "\033]0;${HOSTNAME%%.*}: ${PWD##*/}\007"'
+  ;;
+screen*)
+  export PROMPT_COMMAND='echo -ne "\033k${HOSTNAME%%.*}: ${PWD##*/}\033\\" '
+  ;;
+*)
+  ;;
+esac

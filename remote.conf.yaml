@@ -1,0 +1,3 @@
+- link:
+    ~/.bash_profile: remote_profile 
+    ~/.tmux/tmux.remote.conf: tmux.remote.conf

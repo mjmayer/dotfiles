@@ -1,0 +1,30 @@
+# .bash_profile
+
+# Get the aliases and functions
+if [ -f ~/.bashrc ]; then
+        . ~/.bashrc
+fi
+
+# User specific environment and startup programs
+
+PATH=$PATH:$HOME/.local/bin:$HOME/bin
+
+export PATH
+
+#Sets SSH_AUTH_SOCK to a known path. This fixes ssh forwarding on detached tmux sessions
+if [[ -S "$SSH_AUTH_SOCK" && ! -h "$SSH_AUTH_SOCK" ]]; then
+    ln -sf "$SSH_AUTH_SOCK" ~/.ssh/ssh_auth_sock;
+fi
+export SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock;
+
+# Sets PROMPT_COMMAND to HOSTNAME:PWD which in turn works with tmux to update window name
+case "$TERM" in
+linux|xterm*|rxvt*)
+  export PROMPT_COMMAND='echo -ne "\033]0;${HOSTNAME%%.*}: ${PWD##*/}\007"'
+  ;;
+screen*)
+  export PROMPT_COMMAND='echo -ne "\033k${HOSTNAME%%.*}: ${PWD##*/}\033\\" '
+  ;;
+*)
+  ;;
+esac
