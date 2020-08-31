@@ -41,7 +41,14 @@ for al in `__git_aliases`; do
     function_exists $complete_fnc && __git_complete g$al $complete_func
 done
 
-export PATH="$PATH:$/HOME/.local/bin:$HOME/.local/webstorm/bin:$HOME/.local/goland/bin:$HOME/.local/pycharm/bin"
+aws-elbrules() {
+    lbname=${1:-'web-lb-np'}
+    lbarn=$(aws elbv2 describe-load-balancers --query 'LoadBalancers[?LoadBalancerName==`'"$lbname"'`].LoadBalancerArn' --output text)
+    lblistener=$(aws elbv2 describe-listeners --load-balancer-arn $lbarn --query 'Listeners[?Port==`443`].ListenerArn' --output text)
+    aws elbv2 describe-rules --listener-arn $lblistener
+}
+
+export PATH="$PATH:$/HOME/.local/bin:$HOME/.local/webstorm/bin:$HOME/.local/goland/bin:$HOME/.local/pycharm/bin:$HOME/.local/datagrip/bin"
 
 # NVM
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
