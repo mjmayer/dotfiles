@@ -63,13 +63,20 @@ GOPATH="$HOME/go"
 PATH="$HOME/.local/bin/:/usr/local/go/bin:$GOPATH/bin:$LD_LIBRARY_PATH:$PATH"
 GOPATH=$(go env GOPATH)
 
+# avoid duplicates..
+export HISTCONTROL=ignoredups:erasedups
+# append history entries..
+shopt -s histappend
+
 # Sets PROMPT_COMMAND to HOSTNAME:PWD which in turn works with tmux to update window name
 case "$TERM" in
 linux|xterm*|rxvt*)
-  export PROMPT_COMMAND='echo -ne "\033]0;${HOSTNAME%%.*}: ${PWD##*/}\007"'
+  #export PROMPT_COMMAND='history -a; history -c; history -r; echo -ne "\033]0;${HOSTNAME%%.*}: ${PWD##*/}\007"'
+  export PROMPT_COMMAND='history -a; history -c; history -r; echo -ne "\033]0;${HOSTNAME%%.*}\007"'
   ;;
 screen*)
-  export PROMPT_COMMAND='echo -ne "\033k${HOSTNAME%%.*}: ${PWD##*/}\033\\" '
+  #export PROMPT_COMMAND='history -a; history -c; history -r; echo -ne "\033k${HOSTNAME%%.*}: ${PWD##*/}\033\\" '
+  export PROMPT_COMMAND='history -a; history -c; history -r; echo -ne "\033k${HOSTNAME%%.*}\033\\" '
   ;;
 *)
   ;;
