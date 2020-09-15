@@ -8,6 +8,9 @@
     command: if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then  git clone 'https://github.com/tmux-plugins/tpm' ~/.tmux/plugins/tpm; fi
     description: Cloning Tmux Plugin Manager
     quiet: true
+  - command: if [ "type zsh > /dev/null" ] && [ ! -d "$HOME/.oh-my-zsh/" ]; then curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh; fi
+    description: Installing oh my zsh
+    quiet: true
   - [tmux new -d -s __noop >/dev/null 2>&1 || true; tmux set-environment -g TMUX_PLUGIN_MANAGER_PATH "~/.tmux/plugins"; "$HOME"/.tmux/plugins/tpm/bin/install_plugins || true; tmux kill-session -t __noop >/dev/null 2>&1 || true ] 
   - gpg --import mjmayer.pub
   - ./encrypt_decrypt.sh
