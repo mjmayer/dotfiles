@@ -1,11 +1,13 @@
 - link:
     ~/.ssh/config: ssh_config
     ~/.profile: workstation_profile
-
+    ~/.zshrc: workstation_dot_zshrc
 - shell:
   - [git submodule update --init --recursive, Installing submodules]
-  -
-    command: if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then  git clone 'https://github.com/tmux-plugins/tpm' ~/.tmux/plugins/tpm; fi
+  - command: chsh -s $(which zsh)
+    description: Making zsh the default shell
+    sudo: true
+  - command: if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then  git clone 'https://github.com/tmux-plugins/tpm' ~/.tmux/plugins/tpm; fi
     description: Cloning Tmux Plugin Manager
     quiet: true
   - command: if [ "type zsh > /dev/null" ] && [ ! -d "$HOME/.oh-my-zsh/" ]; then curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh; fi
