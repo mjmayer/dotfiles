@@ -1,0 +1,8 @@
+# This is Git's per-user configuration file.
+[alias]
+[user]
+	name = Michael Mayer
+[core]
+	editor = nvim
+[page]
+	branch=false

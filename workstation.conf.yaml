@@ -1,7 +1,3 @@
-- link:
-    ~/.ssh/config: ssh_config
-    ~/.profile: workstation_profile
-    ~/.zshrc: workstation_dot_zshrc
 - shell:
   - [git submodule update --init --recursive, Installing submodules]
   - command: chsh -s $(which zsh)
@@ -16,3 +12,9 @@
   - [tmux new -d -s __noop >/dev/null 2>&1 || true; tmux set-environment -g TMUX_PLUGIN_MANAGER_PATH "~/.tmux/plugins"; "$HOME"/.tmux/plugins/tpm/bin/install_plugins || true; tmux kill-session -t __noop >/dev/null 2>&1 || true ] 
   - gpg --import mjmayer.pub
   - ./encrypt_decrypt.sh
+- link:
+    ~/.ssh/config: ssh_config
+    ~/.profile: workstation_profile
+    ~/.zshrc: workstation_dot_zshrc
+    ~/.oh-my-zsh/custom/aliases.zsh: workstation_zsh_aliases.zsh
+    ~/.gitconfig: workstation_dot_gitconfig
