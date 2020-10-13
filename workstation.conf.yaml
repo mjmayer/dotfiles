@@ -15,6 +15,8 @@
 - link:
     ~/.ssh/config: ssh_config
     ~/.profile: workstation_profile
-    ~/.zshrc: workstation_dot_zshrc
+    ~/.zshrc:
+      path: workstation_dot_zshrc
+      force: true
     ~/.oh-my-zsh/custom/aliases.zsh: workstation_zsh_aliases.zsh
     ~/.gitconfig: workstation_dot_gitconfig
