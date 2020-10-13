@@ -1,0 +1,29 @@
+#######################################
+#        Identity	              #
+#######################################
+set realname = "Michael Mayer"
+set from = "mjmayer@gmail.com"
+
+#######################################
+#        Gmail Configuration          #
+#######################################
+set imap_user           = "mjmayer@gmail.com"
+set imap_keepalive      = 30
+unset imap_passive      # allow mutt to open new imap connection automatically
+set folder              = "imaps://imap.gmail.com"
+set spoolfile 		= "+INBOX"
+set postponed           = "+[Gmail]/Drafts"
+set smtp_url            = "smtp://mjmayer@smtp.gmail.com:587/"
+unset record            # Gmail auto-stores in "+[Gmail].Sent Mail"
+unset trash             # Unset, deletion will remove labels
+set mail_check = 60
+
+source "gpg -d ~/.config/neomutt/gmail_passwords.gpg |"
+set timeout             = 60                   # idle time before scanning
+set mail_check          = 60                   # minimum time between scans
+
+# Keyboard shortcuts.
+# macro index,pager d "<save-message>=[Gmail]/Trash<enter><enter>" "Trash"
+macro index,pager y "<save-message>=[Gmail]/All Mail<enter><enter>" "Archive"
+
+mailboxes =Inbox =[Gmail]/Sent\ Mail =[Gmail]/Drafts =[Gmail]/Spam =[Gmail]/Trash =[Gmail]/All\ Mail

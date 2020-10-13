@@ -15,6 +15,8 @@
   - gpg --import mjmayer.pub
   - ./encrypt_decrypt.sh
 - create:
+    - ~/.config/neomutt/headers
+    - ~/.config/neomutt/bodies
     - ~/.config/nvim
 - link:
     ~/.ssh/config: ssh_config
@@ -22,4 +24,11 @@
     ~/.zshrc: workstation_dot_zshrc
     ~/.oh-my-zsh/custom/aliases.zsh: workstation_zsh_aliases.zsh
     ~/.gitconfig: workstation_dot_gitconfig
+    ~/.config/neomutt/neomuttrc: workstation_dot_muttrc
+    ~/.config/neomutt/gmail_passwords.gpg: workstation_mutt_passwords_gpg
+    ~/.config/neomutt/profile.gmail: workstation_mutt_gmail_rc
     ~/.config/nvim/init.vim: workstation_nvim
+    ~/.mailcaprc: workstation_dot_mailcaprc
+- shell:
+  - command: touch $HOME/.config/neomutt/certificates
+    description: make certificate file

@@ -1,0 +1,80 @@
+folder-hook "[Gmail]/*" 'source ~/.config/neomutt/profile.gmail'
+set certificate_file    = ~/.config/neomutt/certificates
+set move                = no
+
+#######################################
+#        Pager Settings               #
+#######################################
+ignore *
+unignore From Message-ID Date To Cc Bcc Subject
+
+set pager_stop
+unset markers
+
+# Prefer plain text to html.
+# However, for brain dead clients that bundle attachments inside a
+# multipart/alternative, prefer that alternative.
+alternative_order multipart/mixed multipart/related text/plain
+
+# Consult mime.types for determining types of these attachments
+mime_lookup application/octet-stream
+
+# This requires a ~/.mailcap entry with the copiousoutput flag, such as:
+# text/html; lynx -dump -width ${COLUMNS:-80} %s; nametemplate=%s.html; copiousoutput
+auto_view text/html
+
+# urlview bits to open url
+macro index,pager \CY "<pipe-message> urlscan<Enter>" "call urlscan to extract URLs out of a message"
+#######################################
+#        Index Settings               #
+#######################################
+set quit = ask-yes
+set sort = threads
+# view newest first
+set sort_aux=reverse-last-date-received
+set header_cache        = ~/.config/neomutt/headers
+set message_cachedir    = ~/.config/neomutt/bodies
+
+# sidebar visible
+set sidebar_visible
+set sidebar_format="%B%?F? [%F]?%* %?N?%N/?%S"
+set mail_check_stats
+# Sidebar binds
+bind index,pager \CP sidebar-prev                 # Ctrl-n to select next folder
+bind index,pager \CN sidebar-next                 # Ctrl-p to select previous folder
+bind index,pager \CO sidebar-open                 # Ctrl-o to open selected folder
+bind index,pager \CB sidebar-toggle-visible       # Ctrl-b to toggle visibility of the sidebar
+
+
+#######################################
+#        Composition Settings         #
+#######################################
+set edit_headers
+set editor		= "nvim"
+set mime_type_query_command = "xdg-mime query filetype"
+
+#######################################
+#        GPG Settings                 #
+#######################################
+set pgp_sign_as = 2A4E931CCFE6F73C44B5BB1E3B11EED174A985FD
+set crypt_autosign = "yes"
+set crypt_verify_sig = "yes"
+set crypt_replysign = "yes"
+
+#######################################
+#        Color Settings               #
+#######################################
+color normal        default        		default
+color indicator     brightyellow 	  	red    
+color tree          default             default 
+color status        brightgreen         blue    
+color error         brightred           default 
+color message       red            		default 
+color signature     red           	 	default 
+color attachment    yellow              default     
+color search        brightyellow        red     
+color tilde         brightmagenta       default 
+color markers       red            		default 
+color hdrdefault    cyan                default 
+color bold          green               black   
+color underline     yellow              black
