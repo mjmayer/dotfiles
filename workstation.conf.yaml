@@ -9,12 +9,17 @@
   - command: if [ "type zsh > /dev/null" ] && [ ! -d "$HOME/.oh-my-zsh/" ]; then curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh; fi
     description: Installing oh my zsh
     quiet: true
+  - command: pip3 install --user jedi
+    description: Install python3 jedi for neovim
   - [tmux new -d -s __noop >/dev/null 2>&1 || true; tmux set-environment -g TMUX_PLUGIN_MANAGER_PATH "~/.tmux/plugins"; "$HOME"/.tmux/plugins/tpm/bin/install_plugins || true; tmux kill-session -t __noop >/dev/null 2>&1 || true ] 
   - gpg --import mjmayer.pub
   - ./encrypt_decrypt.sh
+- create:
+    - ~/.config/nvim
 - link:
     ~/.ssh/config: ssh_config
     ~/.profile: workstation_profile
     ~/.zshrc: workstation_dot_zshrc
     ~/.oh-my-zsh/custom/aliases.zsh: workstation_zsh_aliases.zsh
     ~/.gitconfig: workstation_dot_gitconfig
+    ~/.config/nvim/init.vim: workstation_nvim
