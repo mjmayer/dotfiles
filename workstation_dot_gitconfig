@@ -2,6 +2,7 @@
 [alias]
 [user]
 	name = Michael Mayer
+	email = mjmayer@gmail.com
 [core]
 	editor = nvim
 [page]
