@@ -9,9 +9,17 @@
   - command: if [ "type zsh > /dev/null" ] && [ ! -d "$HOME/.oh-my-zsh/" ]; then curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh; fi
     description: Installing oh my zsh
     quiet: true
+  - command: curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    description: Install vim-plug (Run :PlugInstall after launching nvim)
+  - command: pip3 install --user jedi
+    description: Install python3 jedi for neovim
   - [tmux new -d -s __noop >/dev/null 2>&1 || true; tmux set-environment -g TMUX_PLUGIN_MANAGER_PATH "~/.tmux/plugins"; "$HOME"/.tmux/plugins/tpm/bin/install_plugins || true; tmux kill-session -t __noop >/dev/null 2>&1 || true ] 
   - gpg --import mjmayer.pub
   - ./encrypt_decrypt.sh
+- create:
+    - ~/.config/neomutt/headers
+    - ~/.config/neomutt/bodies
+    - ~/.config/nvim
 - link:
     ~/.ssh/config: ssh_config
     ~/.profile: workstation_profile
@@ -20,3 +28,12 @@
       force: true
     ~/.oh-my-zsh/custom/aliases.zsh: workstation_zsh_aliases.zsh
     ~/.gitconfig: workstation_dot_gitconfig
+    ~/.config/neomutt/neomuttrc: workstation_dot_muttrc
+    # Create with `gpg -r mjmayer@gmail.com -e gmail_passwords 
+    ~/.config/neomutt/gmail_passwords.gpg: gmail_passwords.gpg
+    ~/.config/neomutt/profile.gmail: workstation_mutt_gmail_rc
+    ~/.config/nvim/init.vim: workstation_nvim
+    ~/.mailcaprc: workstation_dot_mailcaprc
+- shell:
+  - command: touch $HOME/.config/neomutt/certificates
+    description: make certificate file
