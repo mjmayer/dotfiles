@@ -17,6 +17,8 @@ set smtp_url            = "smtp://mjmayer@smtp.gmail.com:587/"
 unset record            # Gmail auto-stores in "+[Gmail].Sent Mail"
 unset trash             # Unset, deletion will remove labels
 set mail_check = 60
+set smtp_authenticators = "plain"
+set ssl_force_tls       = yes
 
 source "gpg -d ~/.config/neomutt/gmail_passwords.gpg |"
 set timeout             = 60                   # idle time before scanning
