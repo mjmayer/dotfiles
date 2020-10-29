@@ -1,4 +1,5 @@
 folder-hook "[Gmail]/*" 'source ~/.config/neomutt/profile.gmail'
+reply-hook "~t mjmayer@team.mailsac.com" 'source ~/.config/neomutt/profile.team_mailsac'
 set certificate_file    = ~/.config/neomutt/certificates
 set move                = no
 

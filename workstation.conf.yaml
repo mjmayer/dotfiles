@@ -30,8 +30,10 @@
     ~/.gitconfig: workstation_dot_gitconfig
     ~/.config/neomutt/neomuttrc: workstation_dot_muttrc
     # Create with `gpg -r mjmayer@gmail.com -e gmail_passwords 
-    ~/.config/neomutt/gmail_passwords.gpg: gmail_passwords.gpg
+    ~/.config/neomutt/gmail_passwords.gpg: workstation_mutt_gmail_passwords.gpg
+    ~/.config/neomutt/team_mailsac_passwords.gpg: workstation_mutt_team_mailsac_passwords.gpg
     ~/.config/neomutt/profile.gmail: workstation_mutt_gmail_rc
+    ~/.config/neomutt/profile.team_mailsac: workstation_mutt_team_mailsac_rc
     ~/.config/nvim/init.vim: workstation_nvim
     ~/.mailcaprc: workstation_dot_mailcaprc
 - shell:
