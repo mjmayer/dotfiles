@@ -117,7 +117,8 @@ export GPG_TTY="$(tty)"
 export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 gpgconf --launch gpg-agent
 
-autoload -U +X bashcompinit && bashcompinit
+# autoload bash completion scripts seem to break autocomplete for ansible commands
+# autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /home/mjmayer/.local/bin/terraform terraform
 
 # Up and down area use local history. ctrl+arrow uses global history
