@@ -1,0 +1,19 @@
+- shell:
+  - [git submodule update --init --recursive, Installing submodules]
+  - command: if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then  git clone 'https://github.com/tmux-plugins/tpm' ~/.tmux/plugins/tpm; fi
+    description: Cloning Tmux Plugin Manager
+    quiet: true
+  - command: if [ "type zsh > /dev/null" ] && [ ! -d "$HOME/.oh-my-zsh/" ]; then curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh; fi
+    description: Installing oh my zsh
+    quiet: true
+  - [tmux new -d -s __noop >/dev/null 2>&1 || true; tmux set-environment -g TMUX_PLUGIN_MANAGER_PATH "~/.tmux/plugins"; "$HOME"/.tmux/plugins/tpm/bin/install_plugins || true; tmux kill-session -t __noop >/dev/null 2>&1 || true ] 
+  - gpg --import mjmayer.pub
+- create:
+    - ~/.config/nvim
+- link:
+    ~/.ssh/config: ssh_config
+    ~/.zshrc:
+      path: workstation_dot_zshrc
+      force: true
+    ~/.oh-my-zsh/custom/aliases.zsh: workstation_zsh_aliases.zsh
+    ~/.gitconfig: workstation_dot_gitconfig
