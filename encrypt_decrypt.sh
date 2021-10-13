@@ -38,14 +38,14 @@ function ts2Str(){
 
 for encName in **/*.enc.gpg; do
   [[ ! -f "${encName}" ]] && continue
-  encModified=$(stat -c %Y "${encName}")
+  encModified=$(stat -f %Y "${encName}")
   decName="${encName%.enc.gpg}"
   if [[ ! -f "${decName}" ]]; then
     echo "[INFO] Decrypting \"${1}\" to \"${2}\""
     decFile "${encName}" "${decName}"
     touch -mt $(ts2Str ${encModified}) "${decName}"
   else
-    decModified=$(stat -c %Y "${decName}")
+    decModified=$(stat -f %Y "${decName}")
     if [[ "${decModified}" -gt "${encModified}" ]]; then
       echo "[INFO] Decrypted file \"${decName}\" has changed."
       encFile "${decName}" "${encName}"
