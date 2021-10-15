@@ -120,6 +120,7 @@ gpgconf --launch gpg-agent
 # autoload bash completion scripts seem to break autocomplete for ansible commands
 # autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /home/mjmayer/.local/bin/terraform terraform
+complete -C "$(which aws_completer)" aws
 
 # Up and down area use local history. ctrl+arrow uses global history
 bindkey "${key[Up]}" up-line-or-local-history
