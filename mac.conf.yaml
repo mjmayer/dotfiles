@@ -15,5 +15,9 @@
     ~/.zshrc:
       path: workstation_dot_zshrc
       force: true
+    ~/.zprofile:
+      path: workstation_dot_zprofile
+      force: true
+      create: true
     ~/.oh-my-zsh/custom/aliases.zsh: workstation_zsh_aliases.zsh
     ~/.gitconfig: workstation_dot_gitconfig
