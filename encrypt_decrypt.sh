@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 
 # =======================================
 # Encrypt and decrypt files based on gpg
@@ -15,7 +15,6 @@
 # If the encrypted file is newer than the decrypted one, it will decrypt again.
 
 set -e
-shopt -s globstar
 
 # If no GPG ID available in ENV, take the first private identity that we have
 [[ "${GPG_ID}" == '' ]] && GPG_ID=$(gpg -K 2>/dev/null | grep -E -o "\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,6}\b" | head -n 1)
