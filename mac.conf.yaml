@@ -3,6 +3,9 @@
   - command: if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then  git clone 'https://github.com/tmux-plugins/tpm' ~/.tmux/plugins/tpm; fi
     description: Cloning Tmux Plugin Manager
     quiet: true
+  - command: if [ ! -d "$HOME/.nvm" ]; then git clone 'https://github.com/nvm-sh/nvm.git' $HOME/.nvm; else pushd $HOME/.nvm && git pull && popd; fi
+    description: Cloning nvm
+    quiet: false
   - command: if [ "type zsh > /dev/null" ] && [ ! -d "$HOME/.oh-my-zsh/" ]; then curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh; fi
     description: Installing oh my zsh
     quiet: true
