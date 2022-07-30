@@ -134,4 +134,4 @@ down-line-or-local-history() {
 }
 zle -N down-line-or-local-history
 
-complete -o nospace -C /usr/local/bin/terraform terraform
+complete -o nospace -C $(which terraform) terraform
