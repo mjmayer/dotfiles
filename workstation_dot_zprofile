@@ -9,3 +9,7 @@ if [[ -f /opt/local/bin/port ]]; then
   export PATH=/opt/local/bin:/opt/local/sbin:$PATH
   export MANPATH=/opt/local/share/man:$MANPATH
 fi
+
+# setup perlbrew
+source $HOME/.local/perl5/perlbrew/etc/bashrc
+perlbrew use perl-5.34.0

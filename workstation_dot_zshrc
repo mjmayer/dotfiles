@@ -77,7 +77,6 @@ ZSH_THEME="agnoster"
 plugins=(git aws nvm)
 
 source $ZSH/oh-my-zsh.sh
-source $HOME/.local/perl5/perlbrew/etc/bashrc
 
 # User configuration
 
