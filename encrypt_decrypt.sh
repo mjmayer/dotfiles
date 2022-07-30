@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 
 # =======================================
 # Encrypt and decrypt files based on gpg
@@ -15,7 +15,6 @@
 # If the encrypted file is newer than the decrypted one, it will decrypt again.
 
 set -e
-shopt -s globstar
 
 # If no GPG ID available in ENV, take the first private identity that we have
 [[ "${GPG_ID}" == '' ]] && GPG_ID=$(gpg -K 2>/dev/null | grep -E -o "\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,6}\b" | head -n 1)
@@ -38,14 +37,14 @@ function ts2Str(){
 
 for encName in **/*.enc.gpg; do
   [[ ! -f "${encName}" ]] && continue
-  encModified=$(stat -c %Y "${encName}")
+  encModified=$(stat -f %Y "${encName}")
   decName="${encName%.enc.gpg}"
   if [[ ! -f "${decName}" ]]; then
     echo "[INFO] Decrypting \"${1}\" to \"${2}\""
     decFile "${encName}" "${decName}"
     touch -mt $(ts2Str ${encModified}) "${decName}"
   else
-    decModified=$(stat -c %Y "${decName}")
+    decModified=$(stat -f %Y "${decName}")
     if [[ "${decModified}" -gt "${encModified}" ]]; then
       echo "[INFO] Decrypted file \"${decName}\" has changed."
       encFile "${decName}" "${encName}"
