@@ -5,7 +5,9 @@ eval "$(pyenv init --path)"
 eval "$(pyenv init -)"
 
 # shell completetion for bitwarden cli
-eval "$(bw completion --shell zsh); compdef _bw bw;"
+if command -v bw &> /dev/null; then
+    eval "$(bw completion --shell zsh); compdef _bw bw;"
+fi
 
 # Add macports to path
 if [[ -f /opt/local/bin/port ]]; then

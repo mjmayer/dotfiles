@@ -27,3 +27,4 @@
       create: true
     ~/.oh-my-zsh/custom/aliases.zsh: workstation_zsh_aliases.zsh
     ~/.gitconfig: workstation_dot_gitconfig
+    ~/.config/nvim/init.vim: mac_nvim

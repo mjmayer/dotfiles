@@ -1,3 +1,15 @@
+" Install VIM Plug
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+" Run PlugInstall if there are missing plugins
+autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
+  \| PlugInstall --sync | source $MYVIMRC
+\| endif
+
 " Load all plugins now.
 " VIM Plug section
 call plug#begin()
@@ -19,6 +31,7 @@ Plug 'roxma/nvim-yarp'
 Plug 'roxma/vim-hug-neovim-rpc'
 Plug 'zchee/deoplete-go', { 'do': 'make'}
 Plug 'b4b4r07/vim-ansible-vault'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 endif
 call plug#end()
 " Plugins need to be added to runtimepath before helptags can be generated.
@@ -62,10 +75,4 @@ au FileType go nmap <F12> :GoDef<cr>
 
 " Define which python3 to use
 let g:python3_host_prog = '/usr/bin/python3'
-" Install VIM Plug
-if empty(glob('~/.vim/autoload/plug.vim'))
-  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-endif
 

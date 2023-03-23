@@ -1,6 +1,6 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
-export PATH="$PATH:/opt/oracle/instantclient_19_8:/usr/local/opt/ansible@2.9/bin:$HOME/Library/Python/3.8/bin:$HOME/.local/bin:$HOME/go/bin"
+export PATH="$PATH:/opt/oracle/instantclient_19_8:/usr/local/opt/ansible@2.9/bin:$HOME/Library/Python/3.8/bin:$HOME/.local/bin:$HOME/go/bin:$HOME/.local/share/nvim/plugged/fzf/bin"
 
 export ORACLE_HOME="/opt/oracle/"
 export TNS_ADMIN="/opt/oracle/instantclient_19_8/network/admin/"
@@ -136,3 +136,9 @@ zle -N down-line-or-local-history
 
 complete -o nospace -C $(which terraform) terraform
 complete -o nospace -C $(which docker) docker
+
+# FZF
+# FZF Keybindings
+source $HOME/.local/share/nvim/plugged/fzf/shell/key-bindings.zsh
+# FZF fuzzy auto-completion
+source $HOME/.local/share/nvim/plugged/fzf/shell/completion.zsh
