@@ -1,0 +1,26 @@
+#compdef aws-resource-lookup alu
+#autoload
+function ec2_id_from_name() {
+    # Get a list of all EC2 instance names
+    local names=$(aws ec2 describe-instances \
+        --query 'Reservations[].Instances[].Tags[?Key==`Name`].Value' \
+        --output text)
+    _arguments '1:ec2-instance-name:('$names')'
+}
+#
+#
+function _aws-resorce-lookup() {
+    case $service in
+    ec2)
+        ec2_id_from_name
+        ;;
+    ecs)
+        ecs_id_from_name
+        ;;
+    *)
+        echo "Unsupported resource type: $1"
+        exit 1
+        ;;
+    esac
+}
+_aws-resource-lookup "$@"

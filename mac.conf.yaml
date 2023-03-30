@@ -28,3 +28,8 @@
     ~/.oh-my-zsh/custom/aliases.zsh: workstation_zsh_aliases.zsh
     ~/.gitconfig: workstation_dot_gitconfig
     ~/.config/nvim/init.vim: mac_nvim
+    ~/.oh-my-zsh/plugins/aws-resource-lookup/:
+      path: scripts/aws-resource-lookup/*
+      glob: true
+      create: true
+      relink: true
