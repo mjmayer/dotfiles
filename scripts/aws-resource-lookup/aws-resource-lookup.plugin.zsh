@@ -20,7 +20,7 @@ aws-resource-lookup() {
             return 1
         fi
 
-        echo "Instance ID: $instance_id"
+        echo "$instance_id"
 
     elif [ "$1" = "ecs" ]; then
         # Lookup ECS cluster by name
