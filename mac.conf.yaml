@@ -12,12 +12,14 @@
   - [tmux new -d -s __noop >/dev/null 2>&1 || true; tmux set-environment -g TMUX_PLUGIN_MANAGER_PATH "~/.tmux/plugins"; "$HOME"/.tmux/plugins/tpm/bin/install_plugins || true; tmux kill-session -t __noop >/dev/null 2>&1 || true ] 
   - command: git clone https://github.com/powerline/fonts.git --depth=1 && pushd fonts && ./install.sh && popd && rm -rf fonts
   - command: if [ ! -d "$HOME/.pyenv" ]; then git clone https://github.com/pyenv/pyenv.git $HOME/.pyenv; fi
+  - command: chmod +x aws-ssm-ec2-proxy-command/aws-ssm-ec2-proxy-command.sh
   - gpg --import mjmayer.pub
   - ./encrypt_decrypt.sh
 - create:
     - ~/.config/nvim
 - link:
     ~/.ssh/config: ssh_config
+    ~/.ssh/aws-ssm-ec2-proxy-command.sh: aws-ssm-ec2-proxy-command/aws-ssm-ec2-proxy-command.sh
     ~/.zshrc:
       path: workstation_dot_zshrc
       force: true
