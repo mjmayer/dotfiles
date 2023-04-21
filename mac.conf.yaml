@@ -12,6 +12,7 @@
   - [tmux new -d -s __noop >/dev/null 2>&1 || true; tmux set-environment -g TMUX_PLUGIN_MANAGER_PATH "~/.tmux/plugins"; "$HOME"/.tmux/plugins/tpm/bin/install_plugins || true; tmux kill-session -t __noop >/dev/null 2>&1 || true ] 
   - command: git clone https://github.com/powerline/fonts.git --depth=1 && pushd fonts && ./install.sh && popd && rm -rf fonts
   - command: if [ ! -d "$HOME/.pyenv" ]; then git clone https://github.com/pyenv/pyenv.git $HOME/.pyenv; fi
+  # see for details on how to use AWS SSM EC2 proxy https://gist.github.com/GMKBabu/ece931a655a137cd60f9af91b2747336
   - command: chmod +x aws-ssm-ec2-proxy-command/aws-ssm-ec2-proxy-command.sh
   - gpg --import mjmayer.pub
   - ./encrypt_decrypt.sh
