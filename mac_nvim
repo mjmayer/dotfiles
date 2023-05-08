@@ -37,8 +37,15 @@ syntax on
 map gt :tabn<CR>
 " map gT to previous tab
 map gT :tabp<CR>
+
+" enable true color if supported by terminal
+if has('termguicolors')
+  set termguicolors
+endif
+
 set background=dark
-colorscheme solarized8
+autocmd vimenter * ++nested colorscheme solarized8
+" colorscheme solarized8
 " set indent
 set tabstop=8 expandtab shiftwidth=4 softtabstop=4
 set smartindent
@@ -61,3 +68,5 @@ au FileType go nmap <F12> :GoDef<cr>
 " Define which python3 to use
 let g:python3_host_prog = '/usr/bin/python3'
 
+" Disable mouse because it conflicts with tmux
+set mouse=
