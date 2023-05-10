@@ -16,6 +16,8 @@
   - command: chmod +x aws-ssm-ec2-proxy-command/aws-ssm-ec2-proxy-command.sh
   - gpg --import mjmayer.pub
   - ./encrypt_decrypt.sh
+  - command: [ ! -f "$HOME/.gitconfig" }; then cp workstation_dot_config $HOME/.gitconfig; fi
+    description: Copy gitconfig
 - create:
     - ~/.config/nvim
 - link:
