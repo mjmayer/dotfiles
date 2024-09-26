@@ -70,3 +70,6 @@ let g:python3_host_prog = '/usr/bin/python3'
 
 " Disable mouse because it conflicts with tmux
 set mouse=
+
+" Use system clipboard on yank
+set clipboard+=unnamedplus
