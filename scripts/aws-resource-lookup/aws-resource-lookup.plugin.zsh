@@ -34,6 +34,51 @@ aws-resource-lookup() {
         fi
 
         echo "Cluster ARN: $cluster_arn"
+
+    elif [ "$1" = "rds" ]; then
+        # Lookup RDS instance by name
+        rds_instance_id=$(aws rds describe-db-instances \
+            --filters "Name=db-instance-id,Values=$2" \
+            --query 'DBInstances[*].[DBInstanceIdentifier]' \
+            --output text)
+
+        if [ -z "$rds_instance_id" ]; then
+            echo "No RDS instances found with name '$2'"
+            return 1
+        fi
+
+        echo "$rds_instance_id"
+
+    elif [ "$1" = "rds-secret" ]; then
+        # Lookup RDS instance secret by name
+        rds_instance_id=$(aws rds describe-db-instances \
+            --filters "Name=db-instance-id,Values=$2" \
+            --query 'DBInstances[*].[DBInstanceIdentifier]' \
+            --output text)
+
+        if [ -z "$rds_instance_id" ]; then
+            echo "No RDS instances found with name '$2'"
+            return 1
+        fi
+
+        secret_arn=$(aws rds describe-db-instances \
+            --db-instance-identifier "$rds_instance_id" \
+            --query 'DBInstances[0].MasterUserSecret.SecretArn' \
+            --output text)
+
+        if [ "$secret_arn" = "None" ] || [ -z "$secret_arn" ]; then
+            echo "RDS instance '$rds_instance_id' does not use Secrets Manager for its password."
+            return 1
+        fi
+
+        echo "Secret ARN: $secret_arn"
+        echo "Fetching secret value..."
+        secret_value=$(aws secretsmanager get-secret-value \
+            --secret-id "$secret_arn" \
+            --query 'SecretString' \
+            --output text)
+        echo "Secret Value: $secret_value"
+
     else
         echo "Unsupported resource type: $1"
         return 1
