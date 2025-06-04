@@ -71,13 +71,11 @@ aws-resource-lookup() {
             return 1
         fi
 
-        echo "Secret ARN: $secret_arn"
-        echo "Fetching secret value..."
         secret_value=$(aws secretsmanager get-secret-value \
             --secret-id "$secret_arn" \
             --query 'SecretString' \
             --output text)
-        echo "Secret Value: $secret_value"
+        echo "$secret_value"
 
     else
         echo "Unsupported resource type: $1"
