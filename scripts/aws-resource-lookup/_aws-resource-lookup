@@ -7,6 +7,7 @@ function _aws-resource-lookup() {
         'ecs:Lookup ECS cluster by name'
         'rds:Lookup RDS instance by name'
         'rds-secret:Lookup RDS master secret and value'
+        'rds-connect-string:Lookup RDS connection string'
     )
 
     _arguments -C \
@@ -32,7 +33,7 @@ function _aws-resource-lookup() {
                 --query 'clusterArns' --output text 2>/dev/null | awk -F/ '{print $NF}'))
             _describe 'ECS clusters' clusters
             ;;
-        rds | rds-secret)
+        rds | rds-secret | rds-connect-string)
             local rds_instances
             rds_instances=($(aws rds describe-db-instances \
                 --query 'DBInstances[].DBInstanceIdentifier' \
