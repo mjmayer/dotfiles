@@ -1,55 +1,46 @@
 #compdef aws-resource-lookup alu
-#autoload
 
-function _ec2_id_from_name() {
-    # Get a list of all EC2 instance names
-    local names=$(aws ec2 describe-instances \
-        --query 'Reservations[].Instances[].Tags[?Key==`Name`].Value' \
-        --output text)
-    _arguments '1:ec2-instance-name:('$names')'
-}
-
-function _get_cluster_name() {
-    # example arn  arn:aws:ecs:us-west-2:989838493125:cluster/ait-ecs_cluster-prd
-    local cluster_names=$(aws ecs list-clusters \
-        --query 'clusterArns[?contains(@, `'$1'`)]' \
-        --output text)
-    echo "cluster_names: $cluster_names"
-    names_only=$(echo $cluster_names | awk -F'/' '{print $2}')
-    _arguments '1:ecs-cluster-name:('$names_only')'
-}
 function _aws-resource-lookup() {
-    local line state
-    local -a subcmds
-    subcmds=(
+    local -a subcommands
+    subcommands=(
         'ec2:Lookup EC2 instance by name'
         'ecs:Lookup ECS cluster by name'
+        'rds:Lookup RDS instance by name'
+        'rds-secret:Lookup RDS master secret and value'
+        'rds-connect-string:Lookup RDS connection string'
     )
+
     _arguments -C \
-        '1: :->subcmd' \
-        "*::arg:->args"
-    case "$state" in
-    subcmd)
-        _describe 'subcommand' subcmds
+        '1:subcommand:->subcmds' \
+        '*:argument:->args'
+
+    case $state in
+    subcmds)
+        _describe 'subcommand' subcommands
         ;;
     args)
-        case "$line[1]" in
+        case $words[2] in
         ec2)
-            _ec2_id_from_name "$@"
+            local names
+            names=($(aws ec2 describe-instances \
+                --query 'Reservations[].Instances[].Tags[?Key==`Name`].Value' \
+                --output text 2>/dev/null))
+            _describe 'EC2 instance names' names
             ;;
         ecs)
-            _get_cluster_name "$@"
+            local clusters
+            clusters=($(aws ecs list-clusters \
+                --query 'clusterArns' --output text 2>/dev/null | awk -F/ '{print $NF}'))
+            _describe 'ECS clusters' clusters
+            ;;
+        rds | rds-secret | rds-connect-string)
+            local rds_instances
+            rds_instances=($(aws rds describe-db-instances \
+                --query 'DBInstances[].DBInstanceIdentifier' \
+                --output text 2>/dev/null))
+            _describe 'RDS instance names' rds_instances
             ;;
         esac
         ;;
-    # ec2)
-    #     # _arguments '*:ec2-instance-name:{_ec2_id_from_name}'
-    #     echo "state: $state"
-    #     _ec2_id_from_name "$@"
-    #     ;;
-    # ecs)
-    #     ecs_id_from_name
-    #     ;;
     esac
 }
-_aws-resource-lookup "$@"
