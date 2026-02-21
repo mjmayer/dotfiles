@@ -142,3 +142,7 @@ complete -o nospace -C $(which docker) docker
 source $HOME/.local/share/nvim/plugged/fzf/shell/key-bindings.zsh
 # FZF fuzzy auto-completion
 source $HOME/.local/share/nvim/plugged/fzf/shell/completion.zsh
+
+# Disables displaying the aws profile in RPROMPT. I like the AWS profile on the left side, which is set in agnoster theme
+RPROMPT=${RPROMPT//'$(aws_prompt_info)'}
+RPROMPT=${RPROMPT//'`aws_prompt_info`'}
